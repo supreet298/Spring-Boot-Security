@@ -33,23 +33,23 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//        return httpSecurity
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(registry -> {
-//            registry.requestMatchers("/home", "api/csrf-token", "api/authenticate").permitAll();
-//            registry.requestMatchers("/api/**").hasAnyRole("ADMIN", "MANAGER", "USER");
-//            registry.requestMatchers("/api/**").hasAnyRole("ADMIN", "MANAGER");
-//            registry.requestMatchers("/api/**").hasRole("ADMIN");
-//            registry.anyRequest().authenticated();
-//        })
-//                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
-//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-//                .httpBasic(Customizer.withDefaults())
-//                .logout(LogoutConfigurer::permitAll)
-//                .build();
-//    }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(registry -> {
+            registry.requestMatchers("/home", "api/csrf-token", "api/authenticate").permitAll();
+            registry.requestMatchers("/api/**").hasAnyRole("ADMIN", "MANAGER", "USER");
+            registry.requestMatchers("/api/**").hasAnyRole("ADMIN", "MANAGER");
+            registry.requestMatchers("/api/**").hasRole("ADMIN");
+            registry.anyRequest().authenticated();
+        })
+                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .httpBasic(Customizer.withDefaults())
+                .logout(LogoutConfigurer::permitAll)
+                .build();
+    }
 
 //    @Bean
 
